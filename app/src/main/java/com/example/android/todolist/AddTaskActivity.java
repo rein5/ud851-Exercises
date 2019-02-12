@@ -54,6 +54,8 @@ public class AddTaskActivity extends AppCompatActivity {
     // Member variable for the Database
     private AppDatabase mDb;
 
+    private AppDatabase mDB;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
@@ -61,6 +63,10 @@ public class AddTaskActivity extends AppCompatActivity {
         initViews();
 
         mDb = AppDatabase.getInstance(getApplicationContext());
+
+        // TODO (4) Initialize member variable for the data base
+        mDB = AppDatabase.getInstance(getApplicationContext());
+
 
         if (savedInstanceState != null && savedInstanceState.containsKey(INSTANCE_TASK_ID)) {
             mTaskId = savedInstanceState.getInt(INSTANCE_TASK_ID, DEFAULT_TASK_ID);
@@ -111,12 +117,26 @@ public class AddTaskActivity extends AppCompatActivity {
      * It retrieves user input and inserts that new task data into the underlying database.
      */
     public void onSaveButtonClicked() {
+
         String description = mEditText.getText().toString();
         int priority = getPriorityFromViews();
         Date date = new Date();
 
         TaskEntry taskEntry = new TaskEntry(description, priority, date);
         mDb.taskDao().insertTask(taskEntry);
+
+        // TODO (5) Create a description variable and assign to it the value in the edit text
+        String description = mEditText.getText().toString();
+        // TODO (6) Create a priority variable and assign the value returned by getPriorityFromViews()
+        int priority = getPriorityFromViews();
+        // TODO (7) Create a date variable and assign to it the current Date
+        Date date = new Date();
+        // TODO (8) Create taskEntry variable using the variables defined above
+        TaskEntry te = new TaskEntry(description, priority, date);
+        // TODO (9) Use the taskDao in the AppDatabase variable to insert the taskEntry
+        mDB.taskDao().insertTask(te);
+        // TODO (10) call finish() to come back to MainActivity
+
         finish();
     }
 
